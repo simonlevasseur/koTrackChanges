@@ -1,0 +1,6 @@
+.DS_Store
+node_modules/
+reports/
+README.html
+*.sublime-project
+*.sublime-workspace
