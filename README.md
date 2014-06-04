@@ -86,3 +86,7 @@ if (group.isDirty()) {
     // User hasn't edited the form yet
 }
 ```
+
+## License
+
+MIT - [http://www.opensource.org/licenses/mit-license.php](http://www.opensource.org/licenses/mit-license.php)
