@@ -1,9 +1,10 @@
 describe("koTrackChanges", function() {
-    var myObs;
+    var myObs, deepObj;
 
     describe("Knockout Extender:", function () {
         beforeEach(function () {
             myObs = ko.observable(123).extend({ trackChanges: true });
+            deepObj = { a: 1, b: { a: 1, b: new Date() } };
         });
 
         describe("when initialized", function() {
@@ -25,6 +26,14 @@ describe("koTrackChanges", function() {
         describe("when value has changed", function() {
             it("should be dirty", function() {
                 myObs(456);
+                expect(myObs.isDirty()).toBe(true);
+            });
+
+            it("should be dirty even with deep objects", function() {
+                myObs = ko.observable(deepObj).extend({ trackChanges: true });
+                deepObj.b.a = 4;
+
+                myObs.refreshIsDirty();
                 expect(myObs.isDirty()).toBe(true);
             });
 
@@ -99,8 +108,8 @@ describe("koTrackChanges", function() {
 
         beforeEach(function () {
             obs1 = ko.observable(123).extend({ trackChanges: true });
-            obs2 = ko.observable("Test").extend({ trackChanges: true });
-            obs3 = ko.observable(new Date()).extend({ trackChanges: true });
+            obs2 = ko.observable(new Date()).extend({ trackChanges: true });
+            obs3 = ko.observable({ a: 1, b: 2 }).extend({ trackChanges: true });
 
             myGroup = new ko.trackChanges.Group([obs1, obs2, obs3]);
         });
@@ -216,6 +225,15 @@ describe("koTrackChanges", function() {
         describe("when value has changed", function () {
             it("should be dirty", function () {
                 obs1(456);
+                expect(myGroup.isDirty()).toBe(true);
+            });
+
+            it("should be dirty even with deep objects", function () {
+                obs1(456);
+                obs3 = ko.observable(deepObj).extend({ trackChanges: true });
+                deepObj.b.a = 4;
+
+                myGroup.refreshIsDirty();
                 expect(myGroup.isDirty()).toBe(true);
             });
 

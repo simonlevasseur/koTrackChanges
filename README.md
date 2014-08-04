@@ -26,11 +26,27 @@ var firstName = ko.observable('Simon').extend({ trackChanges: true });
 
 The following properties are made available on the observable:
 * **isDirty** (computed observable) -  returns whether the observable has changed
+* **refreshIsDirty** (function) -  forces the isDirty computed to re-evaluate
 * **oldValue** (observable) - returns the original value of the observable
 * **rollback** (function) - restores the original value in the observable, isDirty becomes false
 * **commit** (function) - sets the current value to be the new original value, isDirty becomes false
 
+## Objects
+
+Comparing objects can be tricky in javascript because they are passed around by reference. This means that changing a property it one place may change it in several. This library handles all the defaults by deep cloning objects and arrays.
+
+Another important factor is in situations where your observable contains an entire object. Changing a property will not trigger an update on the observable which in turn means the isDirty flag will not update. To overcome this you have 2 options:
+
+### Method 1 - Call observable.valueHasMutated()
+
+By calling the valueHasMutated function on the observable you will trigger the isDirty flag to update.
+
+### Method 2 - Call observable.refreshIsDirty()
+
+Instead of updating the observable explicitly which could be too often to your liking, you may also call a special function called refreshIsDirty on the observable. This will force the computed to re-evaluate and therefore render proper results.
+
 ## Grouping
+
 You may want to track several observables at the same time. For this very reason, there are a few ways to create what we call a group.
 
 ### Method 1 - Group constructor
@@ -58,6 +74,7 @@ var myGroup = new ko.trackChanges.Group([obs1, obs2]);
 The group has the following methods available:
 * Functions
     * **isDirty** (computed observable) - returns whether the group has changes
+    * **refreshIsDirty** (function) - forces all the observable isDirty flags to re-evaluate
     * **editables** (observable array) - all the observables that are part of the group
     * **changes** (computed observable) - returns a list of all observables that are dirty within the group
     * **rollbackAll** (function) - restores the original value in each of the observables, group isDirty becomes false
@@ -67,12 +84,14 @@ The group has the following methods available:
     * **dispose** (function) - dispose of all the computed and references related to the group
 
 ### Method 2 - Ko extend with a topic
+
 This method is probably the most practical approach if you know ahead of time what you want to group together.
 
 This approach makes it easy to eliminate observables that belong to a group. The only extra step is that in order to get the Group instance, you need to use a new function:
 * **getGroup** (function) - returns the instance of the Group
 
 Example:
+
 ```javascript
 var firstName = ko.observable('John').extend({ trackChanges: 'personForm' });
 var lastName = ko.observable('Doe').extend({ trackChanges: 'personForm' });

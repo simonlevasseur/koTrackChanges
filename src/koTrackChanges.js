@@ -15,16 +15,12 @@
 }(function (ko, _, exports) {
     'use strict';
 
-    var api = exports;
-
-    var groupKey = 'group',
-        groupIndex = 1,
+    var api = exports,
         groups = {};
 
     /***************/
     /***** API *****/
     /***************/
-
     api.Group = function (values) {
         // Get editables
         var tempArray = [];
@@ -66,6 +62,11 @@
         },
         getIsDirty: function () {
             return this.changes().length > 0;
+        },
+        refreshIsDirty: function () {
+            ko.utils.arrayForEach(this.editables(), function (obs) {
+                obs.refreshIsDirty();
+            });
         },
         commitAll: function () {
             ko.utils.arrayForEach(this.editables(), function (obs) {
@@ -122,11 +123,14 @@
     /***** KO EXTENDER *****/
     /***********************/
     ko.extenders.trackChanges = function (target, options) {
+        var forceIsDirtyRefresh = ko.observable();
+
         // Remember the default value
-        target.oldValue = ko.observable(target());
+        target.oldValue = ko.observable(_.clone(target(), true));
 
         // Add isDirty flag to observable
         target.isDirty = ko.computed(function () {
+            forceIsDirtyRefresh();
             if (!options.onlyIf || (options.onlyIf && options.onlyIf.call(target)) ) {
                 return !_.isEqual(target(), target.oldValue());
             }
@@ -134,14 +138,19 @@
             return false;
         });
 
+        // Method to re-evaluate the isDirty computed
+        target.refreshIsDirty = function () {
+            forceIsDirtyRefresh.valueHasMutated();
+        };
+
         // Sets the old value as the current value
         target.rollback = function rollback() {
-            this(this.oldValue());
+            this(_.clone(this.oldValue(), true));
         };
 
         // Sets the current value as the old value
         target.commit = function commit() {
-            this.oldValue(this());
+            this.oldValue(_.clone(this(), true));
         };
 
         // Add to group if topic was provided
