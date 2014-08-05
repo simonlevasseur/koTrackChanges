@@ -4,6 +4,7 @@
     "author": "Simon LeVasseur",
     "devDependencies": {
         "grunt": "*",
+        "grunt-cli": "*",
         "grunt-contrib-clean": "*",
         "grunt-contrib-uglify": "*",
         "grunt-contrib-jshint": "*",
@@ -11,5 +12,8 @@
         "grunt-contrib-watch": "*",
         "grunt-contrib-jasmine": "*",
         "grunt-template-jasmine-istanbul": "*"
+    },
+    "scripts": {
+        "test": "grunt --verbose"
     }
 }
