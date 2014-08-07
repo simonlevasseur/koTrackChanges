@@ -1,4 +1,4 @@
-# koTrackChanges
+# koTrackChanges [![Build Status](https://travis-ci.org/simonlevasseur/koTrackChanges.svg?branch=master)](https://travis-ci.org/simonlevasseur/koTrackChanges)
 
 **koTrackChanges** is an extender for [Knockout.js](http://knockoutjs.com) to track value changes. It allows you to determine if values were changed but not saved, as well as undo unsaved changes.
 
