@@ -25,7 +25,12 @@ module.exports = function (grunt) {
                 template : require('grunt-template-jasmine-istanbul'),
                 templateOptions: {
                     coverage: 'reports/coverage.json',
-                    report: 'reports/coverage'
+                    report: {
+                        type: 'lcov',
+                        options: {
+                            dir: 'reports/coverage'
+                        }
+                    }
                 }
             }
         },
@@ -52,6 +57,14 @@ module.exports = function (grunt) {
                     'build/<%= pkg.name %>WithUnderscore.min.js': 'build/<%= pkg.name %>WithUnderscore.js'
                 }
             }
+        },
+        coveralls: {
+            options: {
+              force: true
+            },
+            main_target: {
+                src: 'reports/coverage/lcov.info'
+            }
         }
     });
 
@@ -61,6 +74,7 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-jshint');
     grunt.loadNpmTasks('grunt-contrib-jasmine');
+    grunt.loadNpmTasks('grunt-coveralls');
 
     // Default task(s).
     grunt.registerTask('default', ['clean', 'jshint', 'jasmine', 'concat', 'uglify']);
