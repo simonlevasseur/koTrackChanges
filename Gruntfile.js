@@ -78,4 +78,5 @@ module.exports = function (grunt) {
 
     // Default task(s).
     grunt.registerTask('default', ['clean', 'jshint', 'jasmine', 'concat', 'uglify']);
+    grunt.registerTask('prod', ['default', 'coveralls']);
 };
