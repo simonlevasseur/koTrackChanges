@@ -21,7 +21,7 @@ module.exports = function (grunt) {
             src : 'src/koTrackChanges.js',
             options : {
                 specs : 'spec/*.js',
-                vendor: ['lib/*.js', 'src/underscore-custom.js'],
+                vendor: ['lib/*.js', 'src/lodash.custom.min.js'],
                 template : require('grunt-template-jasmine-istanbul'),
                 templateOptions: {
                     coverage: 'reports/coverage.json',
@@ -42,7 +42,7 @@ module.exports = function (grunt) {
                 },
                 files: {
                     'build/<%= pkg.name %>.js': ['src/<%= pkg.name %>.js'],
-                    'build/<%= pkg.name %>WithUnderscore.js': ['src/underscore-custom.js', 'src/<%= pkg.name %>.js']
+                    'build/<%= pkg.name %>WithLoDash.js': ['src/lodash.custom.min.js', 'src/<%= pkg.name %>.js']
                 }
             }
         },
@@ -54,7 +54,7 @@ module.exports = function (grunt) {
                 },
                 files: {
                     'build/<%= pkg.name %>.min.js': 'build/<%= pkg.name %>.js',
-                    'build/<%= pkg.name %>WithUnderscore.min.js': 'build/<%= pkg.name %>WithUnderscore.js'
+                    'build/<%= pkg.name %>WithLoDash.min.js': 'build/<%= pkg.name %>WithLoDash.js'
                 }
             }
         },
