@@ -4,13 +4,13 @@
     /* istanbul ignore next */
     if (typeof require === "function" && typeof exports === "object" && typeof module === "object") {
         // CommonJS or Node: hard-coded dependency on "knockout"
-        factory(require("ko"), require("underscore"), exports);
+        factory(require("ko"), require("lodash"), exports);
     } else if (typeof define === "function" && define.amd) {
         // AMD anonymous module with hard-coded dependency on "knockout"
-        define(["ko", "underscore", "exports"], factory);
+        define(["ko", "lodash", "exports"], factory);
     } else {
         // <script> tag: use the global `ko` object, attaching a `mapping` property
-        factory(ko, _, ko.trackChanges = {});
+        factory(ko, _, {});
     }
 }(function (ko, _, exports) {
     'use strict';

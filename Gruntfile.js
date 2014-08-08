@@ -21,7 +21,7 @@ module.exports = function (grunt) {
             src : 'src/koTrackChanges.js',
             options : {
                 specs : 'spec/*.js',
-                vendor: ['lib/*.js', 'src/lodash.custom.min.js'],
+                vendor: ['lib/*.js'],
                 template : require('grunt-template-jasmine-istanbul'),
                 templateOptions: {
                     coverage: 'reports/coverage.json',
@@ -36,25 +36,20 @@ module.exports = function (grunt) {
         },
         concat: {
             trackChanges: {
-                options: {
-                    separator: '\n\n',
-                    banner: '// <%= pkg.name %> <%= pkg.version %> | (c) <%= grunt.template.today("yyyy") %> Simon LeVasseur |  http://www.opensource.org/licenses/mit-license\n'
-                },
                 files: {
-                    'build/<%= pkg.name %>.js': ['src/<%= pkg.name %>.js'],
-                    'build/<%= pkg.name %>WithLoDash.js': ['src/lodash.custom.min.js', 'src/<%= pkg.name %>.js']
+                    'build/<%= pkg.name %>.js': 'src/<%= pkg.name %>.js',
+                    'build/lodash.custom.js': 'lib/lodash.custom.js',
+                    'build/lodash.custom.min.js': 'lib/lodash.custom.min.js'
                 }
             }
         },
         uglify: {
             trackChanges: {
                 options: {
-                    stripBanners: true,
                     banner: '// <%= pkg.name %> <%= pkg.version %> | (c) <%= grunt.template.today("yyyy") %> Simon LeVasseur |  http://www.opensource.org/licenses/mit-license\n'
                 },
                 files: {
-                    'build/<%= pkg.name %>.min.js': 'build/<%= pkg.name %>.js',
-                    'build/<%= pkg.name %>WithLoDash.min.js': 'build/<%= pkg.name %>WithLoDash.js'
+                    'build/<%= pkg.name %>.min.js': 'build/<%= pkg.name %>.js'
                 }
             }
         },

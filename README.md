@@ -14,9 +14,7 @@ grunt;
 
 ## Dependencies
 
-This library depends on **Knockout.js v2.3.0 or newer** and **Lo-Dash.js**.
-
-There are 2 available builds to choose from: a **bare bones version** and a version with a **custom build of lo-dash included**. If your project already uses Lo-Dash.js you should use the bare bones version otherwise you must use the version with lo-dash.
+This library depends on **Knockout.js v2.3.0 or newer** and **Lo-Dash.js**. There is a custom lightweight version of lo-dash supplied if you're not already using it otherwise it's not required.
 
 ## Basic Usage
 
