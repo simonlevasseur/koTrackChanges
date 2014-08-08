@@ -15,8 +15,10 @@
 }(function (ko, _, exports) {
     'use strict';
 
-    var api = exports,
-        groups = {};
+    var api = exports;
+    ko.trackChanges = api;
+
+    var groups = {};
 
     /***************/
     /***** API *****/
