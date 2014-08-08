@@ -156,11 +156,12 @@
         };
 
         // Add to group if topic was provided
-        if (typeof options == 'string' || options instanceof String) {
-            if (groups[options]) {
-                groups[options].editables.push(target);
+        if (_.isString(options) || (_.isObject(options) && _.isString(options.group))) {
+            var groupName = options.group || options;
+            if (groups[groupName]) {
+                groups[groupName].editables.push(target);
             } else {
-                groups[options] = new api.Group([target]);
+                groups[groupName] = new api.Group([target]);
             }
         }
 
