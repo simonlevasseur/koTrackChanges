@@ -268,6 +268,14 @@ describe("koTrackChanges", function() {
                 expect(changes.length).toEqual(3);
                 expect(changes[2]).toEqual(obs3);
             });
+
+            it("should print the right changes", function () {
+                obs1(456);
+                obs2('different');
+                obs3({ a: 098, b: { c: 'Hello', d: 'World' } });
+                myGroup.printChange();
+                expect(true).toBe(true);
+            });
         });
 
         describe("when disposing", function () {

@@ -70,6 +70,11 @@
                 obs.refreshIsDirty();
             });
         },
+        printChange: function () {
+            ko.utils.arrayForEach(this.changes(), function (obs) {
+                obs.printChange();
+            });
+        },
         commitAll: function () {
             ko.utils.arrayForEach(this.editables(), function (obs) {
                 obs.commit();
@@ -143,6 +148,11 @@
         // Method to re-evaluate the isDirty computed
         target.refreshIsDirty = function () {
             forceIsDirtyRefresh.valueHasMutated();
+        };
+
+        // Method to print a readable string of the change
+        target.printChange = function () {
+            console.log('Old: ' + JSON.stringify(target.oldValue()) + '\nNew: ' + JSON.stringify(target()));
         };
 
         // Sets the old value as the current value
