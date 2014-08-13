@@ -27,7 +27,7 @@ The following properties are made available on the observable:
 * **refreshIsDirty** (function) -  forces the isDirty computed to re-evaluate
 * **oldValue** (observable) - returns the original value of the observable
 * **rollback** (function) - restores the original value in the observable, isDirty becomes false
-* **commit** (function) - sets the current value to be the new original value, isDirty becomes false
+* **commit** (function) - sets the passed in value (if provided and not undefined, otherwise uses current value) as the new original value, isDirty becomes false
 
 ## Objects
 

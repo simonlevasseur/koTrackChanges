@@ -162,9 +162,8 @@
 
         // Sets the current value as the old value
         target.commit = function commit(val) {
-            if (val) {
-                this(val);
-            }
+            // Write value passed in
+            if (val !== undefined) { this(val); }
 
             this.oldValue(_.clone(this(), true));
         };
