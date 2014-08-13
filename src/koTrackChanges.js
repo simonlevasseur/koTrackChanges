@@ -161,7 +161,11 @@
         };
 
         // Sets the current value as the old value
-        target.commit = function commit() {
+        target.commit = function commit(val) {
+            if (val) {
+                this(val);
+            }
+
             this.oldValue(_.clone(this(), true));
         };
 

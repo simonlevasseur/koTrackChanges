@@ -48,14 +48,12 @@ describe("koTrackChanges", function() {
             });
 
             it("should not be dirty after calling .commit()", function() {
-                myObs(456);
-                myObs.commit();
+                myObs.commit(456);
                 expect(myObs.isDirty()).toBe(false);
             });
 
             it("should save the latest value as the original value when calling .commit()", function() {
-                myObs(456);
-                myObs.commit();
+                myObs.commit(456);
                 expect(myObs.oldValue()).toEqual(456);
             });
 
