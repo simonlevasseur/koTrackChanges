@@ -25,6 +25,7 @@ var firstName = ko.observable('Simon').extend({ trackChanges: true });
 The following properties are made available on the observable:
 * **isDirty** (computed observable) -  returns whether the observable has changed
 * **refreshIsDirty** (function) -  forces the isDirty computed to re-evaluate
+* **printChange** (function) -  prints to the console the old and new value for comparison
 * **oldValue** (observable) - returns the original value of the observable
 * **rollback** (function) - restores the original value in the observable, isDirty becomes false
 * **commit** (function) - sets the passed in value (if provided and not undefined, otherwise uses current value) as the new original value, isDirty becomes false
@@ -73,6 +74,7 @@ The group has the following methods available:
 * Functions
     * **isDirty** (computed observable) - returns whether the group has changes
     * **refreshIsDirty** (function) - forces all the observable isDirty flags to re-evaluate
+    * **printChange** (function) -  prints to the console all of the old and new values for comparison
     * **editables** (observable array) - all the observables that are part of the group
     * **changes** (computed observable) - returns a list of all observables that are dirty within the group
     * **rollbackAll** (function) - restores the original value in each of the observables, group isDirty becomes false
